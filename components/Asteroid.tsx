@@ -2,12 +2,12 @@ import { UpCircleOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 
 import { useMovement } from "./useMovement";
 
-export default ({ x, y, rotation }) => {
+export default ({ x, y, rotation, size }) => {
   // const position = useMovement(tick);
   return (
     <DeploymentUnitOutlined
       style={{
-        fontSize: "3em",
+        fontSize: `${size}em`,
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,

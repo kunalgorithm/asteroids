@@ -1,4 +1,4 @@
-import { GithubFilled } from "@ant-design/icons";
+import { RocketFilled } from "@ant-design/icons";
 
 import { useMovement } from "./useMovement";
 
@@ -6,7 +6,7 @@ export default ({ x, y, rotation }) => {
   // const position = useMovement(tick);
 
   return (
-    <GithubFilled
+    <RocketFilled
       style={{
         fontSize: "1em",
         position: "absolute",

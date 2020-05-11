@@ -19,6 +19,7 @@ function createAsteroid(size) {
     rotation: getRandomInt(0, 180),
     speed: getRandomInt(),
     curve: Math.random() - 0.5,
+    size: Math.random() * 6 + 3,
   };
 }
 
@@ -108,8 +109,8 @@ export default () => {
             : newPosition.y,
       });
     }
-    if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 7);
-    if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 7);
+    if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 10);
+    if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 10);
     /////////////////////////////////////////////////////
     // Update asteroids
     /////////////////////////////////////////////////////
@@ -127,6 +128,7 @@ export default () => {
           };
 
           return {
+            ...as,
             x:
               newPosition.x < 0
                 ? size.width
@@ -140,8 +142,6 @@ export default () => {
                 ? 0
                 : newPosition.y,
             rotation: as.rotation + as.curve,
-            speed: as.speed,
-            curve: as.curve,
           };
         }) // delete asteroid that get too close to bullets
         .filter(
