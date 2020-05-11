@@ -1,6 +1,6 @@
 # Asteroids
 
-![Asteroids Screenshot](/public/asteroids.gif)
+<a href="https://asteroids.now.sh">![Asteroids Screenshot](/public/asteroids-small.gif)</a>
 
 ## Quick Start
 
