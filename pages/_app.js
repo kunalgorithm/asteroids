@@ -2,8 +2,7 @@
 import React from "react";
 import App, { Container } from "next/app";
 import Head from "next/head";
-import Copyright from "../components/Copyright";
-import Exit from "../components/Exit";
+
 import { Layout, Menu } from "antd";
 import Link from "next/link";
 
