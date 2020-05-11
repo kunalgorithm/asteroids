@@ -15,8 +15,6 @@ export default () => {
     ArrowRight: false,
   });
 
-  const [asteroids, setAsteroids] = useState([]);
-
   const handleKeyDown = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -34,12 +32,8 @@ export default () => {
   };
   const [tick, setTick] = useState(0);
 
-  useInterval(() => setTick(tick + 1), 50);
+  useInterval(() => setTick(tick + 1), 60);
 
-  // useInterval(() => {
-  //   setAsteroids([...asteroids, Math.random()]);
-  //   console.log(asteroids);
-  // }, 3000);
   return (
     <Row
       style={{ height: "100vh" }}
@@ -50,19 +44,23 @@ export default () => {
     >
       <div>
         <Player keysDown={keysDown} tick={tick} />
-        {/* {asteroids.map((a) => {
-          <Asteroid tick={tick} key={a} />;
-        })} */}
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
-        <Asteroid tick={tick} />
+
+        <Asteroids tick={tick} />
       </div>
     </Row>
+  );
+};
+
+const Asteroids = (tick) => {
+  const [asteroids, setAsteroids] = useState([]);
+  useInterval(() => {
+    setAsteroids([...asteroids, Math.random()]);
+  }, 3000);
+  return (
+    <>
+      {asteroids.map((as) => (
+        <Asteroid tick={tick} />
+      ))}
+    </>
   );
 };

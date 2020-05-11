@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from "react";
 import App, { Container } from "next/app";
 import Head from "next/head";
 
 import { Layout, Menu } from "antd";
 import Link from "next/link";
+import { GithubOutlined } from "@ant-design/icons";
 
 const { Header, Footer, Sider, Content } = Layout;
 //@ts-ignore
@@ -29,20 +29,21 @@ class MyApp extends App {
                 </Link>
               </Menu.Item>
 
-              <Menu.Item key="4">
-                <Exit />
+           <Menu.Item key="4">
+               Exit
               </Menu.Item>
             </Menu>
           </Header> */}
 
-          {/* <Sider>Sider</Sider> */}
           <Content style={{ padding: "3em" }}>
             <Component {...pageProps} />
           </Content>
 
-          {/* <Footer style={{ textAlign: "center" }}>
-            <Copyright />
-          </Footer> */}
+          <Footer style={{ textAlign: "right" }}>
+            <a href="https://github.com/kunalgorithm/asteroids" target="_blank">
+              Source <GithubOutlined />
+            </a>
+          </Footer>
         </Layout>
       </>
     );
