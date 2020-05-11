@@ -20,16 +20,26 @@ export default ({ keysDown, speed }) => {
     const xComponent = speed * Math.cos(((rotation - 90) * Math.PI) / 180);
     const yComponent = speed * Math.sin(((rotation - 90) * Math.PI) / 180);
     if (keysDown["ArrowUp"]) {
+      const newPosition = {
+        x: position.x + xComponent,
+        y: position.y + yComponent,
+      };
       setPosition({
-        x: position.x + xComponent > 0 ? position.x + xComponent : position.x,
-        y: position.y + yComponent > 0 ? position.y + yComponent : position.y,
+        x:
+          newPosition.x < 0
+            ? size.width
+            : newPosition.x > size.width
+            ? 0
+            : newPosition.x,
+        y:
+          newPosition.y < 0
+            ? size.height
+            : newPosition.y > size.height
+            ? 0
+            : newPosition.y,
       });
     }
-    if (keysDown["ArrowDown"])
-      setPosition({
-        x: position.x - xComponent > 0 ? position.x - xComponent : position.x,
-        y: position.y - yComponent > 0 ? position.y - yComponent : position.y,
-      });
+
     if (keysDown["ArrowLeft"]) setRotation(rotation - 7);
     if (keysDown["ArrowRight"]) setRotation(rotation + 7);
   }, 30);
