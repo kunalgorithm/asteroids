@@ -69,6 +69,7 @@ export default () => {
     createAsteroid(size),
     createAsteroid(size),
   ]);
+  const [score, setScore] = useState(0);
   const [bullets, setBullets] = useState<
     {
       x: number;
@@ -118,46 +119,52 @@ export default () => {
     /////////////////////////////////////////////////////
     // Update asteroids
     /////////////////////////////////////////////////////
-    setAsteroids(
-      asteroids
-        .map((as) => {
-          const xComponent =
-            as.speed * Math.cos(((as.rotation - 90) * Math.PI) / 180);
-          const yComponent =
-            as.speed * Math.sin(((as.rotation - 90) * Math.PI) / 180);
+    const newAsteroids = asteroids
+      .map((as) => {
+        const xComponent =
+          as.speed * Math.cos(((as.rotation - 90) * Math.PI) / 180);
+        const yComponent =
+          as.speed * Math.sin(((as.rotation - 90) * Math.PI) / 180);
 
-          const newPosition = {
-            x: as.x + xComponent,
-            y: as.y + yComponent,
-          };
+        const newPosition = {
+          x: as.x + xComponent,
+          y: as.y + yComponent,
+        };
 
-          return {
-            ...as,
-            x:
-              newPosition.x < 0 - as.size
-                ? size.width
-                : newPosition.x > size.width
-                ? 0
-                : newPosition.x,
-            y:
-              newPosition.y < 0 - as.size
-                ? size.height
-                : newPosition.y > size.height
-                ? 0
-                : newPosition.y,
-            rotation: as.rotation + as.curve * 4,
-            curve: as.curve,
-          };
-        }) // destroy asteroid that get too close to bullets
-        .filter(
-          (asteroid) =>
-            !bullets.find(
-              (bullet) =>
-                Math.abs(bullet.x - asteroid.x) < asteroid.size / 2 &&
-                Math.abs(bullet.y - asteroid.y) < asteroid.size / 2
-            )
-        )
-    );
+        return {
+          ...as,
+          x:
+            newPosition.x < 0 - as.size
+              ? size.width
+              : newPosition.x > size.width
+              ? 0
+              : newPosition.x,
+          y:
+            newPosition.y < 0 - as.size
+              ? size.height
+              : newPosition.y > size.height
+              ? 0
+              : newPosition.y,
+          rotation: as.rotation + as.curve * 4,
+          curve: as.curve,
+        };
+      }) // destroy asteroid that get too close to bullets
+      .filter(
+        (asteroid) =>
+          !bullets.find(
+            (bullet) =>
+              Math.abs(bullet.x - asteroid.x) < asteroid.size / 2 &&
+              Math.abs(bullet.y - asteroid.y) < asteroid.size / 2
+          )
+      );
+    setScore(score + asteroids.length - newAsteroids.length);
+    if (
+      !localStorage.getItem("highScore") ||
+      score > parseInt(localStorage.getItem("highScore"))
+    )
+      localStorage.setItem("highScore", score.toString());
+
+    setAsteroids(newAsteroids);
 
     /////////////////////////////////////////////////////
     // update bullets
@@ -194,6 +201,18 @@ export default () => {
       onKeyUp={handleKeyUp}
       id="game"
     >
+      <Col span={8}>
+        {" "}
+        <h4 style={{ marginTop: "-20px" }}>Score: {score}</h4>
+      </Col>
+      <Col span={8} offset={8}>
+        <h4 style={{ marginTop: "-20px", textAlign: "right" }}>
+          High Score:{" "}
+          {typeof window !== "undefined" && localStorage.getItem("highScore")
+            ? localStorage.getItem("highScore")
+            : 0}
+        </h4>
+      </Col>
       <div>
         <Player position={player} rotation={playerRotation} />
 
