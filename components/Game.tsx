@@ -6,6 +6,11 @@ import { useState, useEffect } from "react";
 import Player from "./Player";
 import Asteroid from "./Asteroid";
 import useInterval from "./useInterval";
+import useWindowSize from "./useWindowSize";
+
+function getRandomInt(min = 0, max = 10) {
+  return Math.floor(Math.random() * Math.floor(max) + min);
+}
 
 export default () => {
   const [keysDown, setKeysDown] = useState({
@@ -31,8 +36,99 @@ export default () => {
     setKeysDown(newKeysDown);
   };
   const [tick, setTick] = useState(0);
+  const size = useWindowSize();
+  const [asteroids, setAsteroids] = useState([
+    {
+      x: getRandomInt(0, size.width),
+      y: getRandomInt(0, size.height),
+      rotation: getRandomInt(0, 180),
+      speed: getRandomInt(),
+      curve: Math.random() - 0.5,
+    },
+  ]);
+  const [bullets, setBullets] = useState([]);
+  const [player, setPlayer] = useState({
+    x: 50,
+    y: 100,
+    speed: 15,
+  });
+  const [playerRotation, setPlayerRotation] = useState(90);
 
-  useInterval(() => setTick(tick + 1), 60);
+  useInterval(() => {
+    /////////////////////////////////////////////////////
+    // Update player
+    /////////////////////////////////////////////////////
+    const xComponent =
+      player.speed * Math.cos(((playerRotation - 90) * Math.PI) / 180);
+    const yComponent =
+      player.speed * Math.sin(((playerRotation - 90) * Math.PI) / 180);
+    if (keysDown["ArrowUp"]) {
+      const newPosition = {
+        x: player.x + xComponent,
+        y: player.y + yComponent,
+      };
+      setPlayer({
+        ...player,
+        x:
+          newPosition.x < 0
+            ? size.width
+            : newPosition.x > size.width
+            ? 0
+            : newPosition.x,
+        y:
+          newPosition.y < 0
+            ? size.height
+            : newPosition.y > size.height
+            ? 0
+            : newPosition.y,
+      });
+    }
+    if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 7);
+    if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 7);
+    /////////////////////////////////////////////////////
+    // Update asteroids
+    /////////////////////////////////////////////////////
+    setAsteroids(
+      asteroids.map((as) => {
+        const xComponent =
+          as.speed * Math.cos(((as.rotation - 90) * Math.PI) / 180);
+        const yComponent =
+          as.speed * Math.sin(((as.rotation - 90) * Math.PI) / 180);
+
+        const newPosition = {
+          x: as.x + xComponent,
+          y: as.y + yComponent,
+        };
+
+        return {
+          x:
+            newPosition.x < 0
+              ? size.width
+              : newPosition.x > size.width
+              ? 0
+              : newPosition.x,
+          y:
+            newPosition.y < 0
+              ? size.height
+              : newPosition.y > size.height
+              ? 0
+              : newPosition.y,
+          rotation: as.rotation + as.curve,
+          speed: as.speed,
+          curve: as.curve,
+        };
+      })
+    );
+
+    /////////////////////////////////////////////////////
+    // update bullets
+    /////////////////////////////////////////////////////
+  }, 60);
+
+  // create asteroids
+  // useInterval(() => {
+  //   setAsteroids([...asteroids, Math.random()]);
+  // }, 3000);
 
   return (
     <Row
@@ -43,24 +139,12 @@ export default () => {
       id="game"
     >
       <div>
-        <Player keysDown={keysDown} tick={tick} />
+        <Player position={player} rotation={playerRotation} />
 
-        <Asteroids tick={tick} />
+        {asteroids.map((as) => (
+          <Asteroid asteroid={as} />
+        ))}
       </div>
     </Row>
-  );
-};
-
-const Asteroids = (tick) => {
-  const [asteroids, setAsteroids] = useState([]);
-  useInterval(() => {
-    setAsteroids([...asteroids, Math.random()]);
-  }, 3000);
-  return (
-    <>
-      {asteroids.map((as) => (
-        <Asteroid tick={tick} />
-      ))}
-    </>
   );
 };
