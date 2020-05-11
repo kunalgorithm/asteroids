@@ -38,7 +38,11 @@ class MyApp extends App {
           </Content>
 
           <Footer style={{ textAlign: "right" }}>
-            <a href="https://github.com/kunalgorithm/asteroids" target="_blank">
+            <a
+              href="https://github.com/kunalgorithm/asteroids"
+              target="_blank"
+              style={{ color: "rgba(255, 255, 255, 0.55)" }}
+            >
               Source <GithubOutlined />
             </a>
           </Footer>

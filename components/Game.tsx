@@ -227,11 +227,11 @@ export default () => {
       <div>
         <Player position={player} rotation={playerRotation} />
 
-        {asteroids.map((as) => (
-          <Asteroid {...as} />
+        {asteroids.map((as, i) => (
+          <Asteroid {...as} key={i} />
         ))}
-        {bullets.map((b) => (
-          <Bullet {...b} />
+        {bullets.map((b, i) => (
+          <Bullet {...b} key={i} />
         ))}
       </div>
     </Row>
