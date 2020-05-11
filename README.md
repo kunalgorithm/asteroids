@@ -1,17 +1,5 @@
 # Asteroids
 
-## Features
-
-⚡️ Deploy a full-featured production-ready web application in less than 60 seconds.
-
-🔐 Allow users to sign up and log in with an email and password, view their profiles and data, and log out. Outputs feedback for loading and errors states to enhance UX.
-
-📃 Includes a splash page, login page, sign up page, and dashboard.
-
-🤖‍‍ Includes wired up forms, queries, mutations, snackbars, and more commonly used components.
-
-☁️ [Zero Config Deployments](https://zeit.co/blog/zero-config). It just works 🔥
-
 ## Quick Start
 
 Clone the repository
@@ -41,14 +29,10 @@ now
 
 # Tech stack
 
-🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client and server.
+🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client.
 
-🌚 [Next 9.3](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes).
-
-🦋 [Apollo](https://www.apollographql.com/docs/react/hooks-migration/) (React Hooks API) - GraphQL client for queries and mutations.
+🌚 [Next 9](https://github.com/zeit/next.js) - SSR, file-based routing, and automatic code-splitting
 
 💅 [Ant Design](https:/ant.design) - Beautiful, responsive, easy-to-use components.
 
-▲ [ZEIT now](https://now.sh) - serverless monorepo deployment.
-
-🌪️[Hasura](https://hasura.io) - Realtime GraphQL API on top of postgres
+▲ [ZEIT (Vercel) now](https://now.sh) - serverless monorepo deployment.
