@@ -1,4 +1,4 @@
-import { Row, Col, Popover } from "antd";
+import { Row, Col, Popover, Alert } from "antd";
 
 import { UpCircleOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
@@ -202,10 +202,20 @@ export default () => {
       id="game"
     >
       <Col span={8}>
-        {" "}
         <h4 style={{ marginTop: "-20px" }}>Score: {score}</h4>
       </Col>
-      <Col span={8} offset={8}>
+      <Col span={8}>
+        {" "}
+        <Alert
+          message="Click the game to start."
+          className="alert"
+          description="The game window is not currently in focus."
+          type="warning"
+          showIcon
+          closable
+        />{" "}
+      </Col>
+      <Col span={8}>
         <h4 style={{ marginTop: "-20px", textAlign: "right" }}>
           High Score:{" "}
           {typeof window !== "undefined" && localStorage.getItem("highScore")
@@ -213,6 +223,7 @@ export default () => {
             : 0}
         </h4>
       </Col>
+
       <div>
         <Player position={player} rotation={playerRotation} />
 
