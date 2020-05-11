@@ -8,6 +8,7 @@ import Asteroid from "./Asteroid";
 import useInterval from "./useInterval";
 import useWindowSize from "./useWindowSize";
 import Bullet from "./Bullet";
+import { Scoreboard } from "./Scoreboard";
 
 function getRandomInt(min = 0, max = 10) {
   return Math.floor(Math.random() * Math.floor(max) + min);
@@ -85,35 +86,7 @@ export default () => {
       onKeyUp={handleKeyUp}
       id="game"
     >
-      <Col sm={{ span: 8, order: 1 }} md={{ span: 8 }}>
-        <h4 style={{ marginTop: "-20px" }}>Score: {score}</h4>
-      </Col>
-      <Col
-        md={8}
-        sm={{ span: 12, order: 3, offset: 6 }}
-        xs={{ span: 16, order: 3, offset: 4 }}
-      >
-        {" "}
-        <Alert
-          message="Click the game to start."
-          className="alert"
-          description="The game window is not currently in focus."
-          type="info"
-          showIcon
-        />{" "}
-      </Col>
-      <Col
-        md={8}
-        sm={{ span: 4, order: 2, offset: 8 }}
-        xs={{ span: 8, order: 2 }}
-      >
-        <h4 style={{ marginTop: "-20px", textAlign: "right" }}>
-          High Score:{" "}
-          {typeof window !== "undefined" && localStorage.getItem("highScore")
-            ? localStorage.getItem("highScore")
-            : 0}
-        </h4>
-      </Col>
+      <Scoreboard score={score!} />
 
       <div>
         <Player position={player} rotation={playerRotation} />
