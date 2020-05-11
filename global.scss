@@ -17,9 +17,15 @@ div {
   background-color: #07070721;
   // }
 }
+#game {
+  background-image: url(https://cdn0.iconfinder.com/data/icons/click-linear-outline/300/15197605Untitled-3-512.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
 #game:focus {
   outline: none;
   background-color: transparent;
+  background-image: none;
   #arena {
     background-color: transparent;
   }

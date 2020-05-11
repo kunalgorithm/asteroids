@@ -7,7 +7,7 @@ export default ({ x, y, rotation, size }) => {
   return (
     <DeploymentUnitOutlined
       style={{
-        fontSize: `${size}em`,
+        fontSize: `${size}px`,
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,

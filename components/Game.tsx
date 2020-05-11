@@ -17,9 +17,9 @@ function createAsteroid(size) {
     x: getRandomInt(0, size.width),
     y: getRandomInt(0, size.height),
     rotation: getRandomInt(0, 180),
-    speed: getRandomInt(),
-    curve: Math.random() - 0.5,
-    size: Math.random() * 6 + 3,
+    speed: getRandomInt(0, 15),
+    curve: Math.random() * 1.5 - 0.75,
+    size: Math.random() * 50 + 50,
   };
 }
 
@@ -64,6 +64,10 @@ export default () => {
   const [asteroids, setAsteroids] = useState([
     createAsteroid(size),
     createAsteroid(size),
+    createAsteroid(size),
+    createAsteroid(size),
+    createAsteroid(size),
+    createAsteroid(size),
   ]);
   const [bullets, setBullets] = useState<
     {
@@ -96,13 +100,13 @@ export default () => {
       setPlayer({
         ...player,
         x:
-          newPosition.x < 0
+          newPosition.x < 0 - 50
             ? size.width
             : newPosition.x > size.width
             ? 0
             : newPosition.x,
         y:
-          newPosition.y < 0
+          newPosition.y < 0 - 50
             ? size.height
             : newPosition.y > size.height
             ? 0
@@ -130,26 +134,27 @@ export default () => {
           return {
             ...as,
             x:
-              newPosition.x < 0
+              newPosition.x < 0 - as.size
                 ? size.width
                 : newPosition.x > size.width
                 ? 0
                 : newPosition.x,
             y:
-              newPosition.y < 0
+              newPosition.y < 0 - as.size
                 ? size.height
                 : newPosition.y > size.height
                 ? 0
                 : newPosition.y,
-            rotation: as.rotation + as.curve,
+            rotation: as.rotation + as.curve * 4,
+            curve: as.curve,
           };
-        }) // delete asteroid that get too close to bullets
+        }) // destroy asteroid that get too close to bullets
         .filter(
           (asteroid) =>
             !bullets.find(
               (bullet) =>
-                Math.abs(bullet.x - asteroid.x) < 20 &&
-                Math.abs(bullet.y - asteroid.y) < 20
+                Math.abs(bullet.x - asteroid.x) < asteroid.size / 2 &&
+                Math.abs(bullet.y - asteroid.y) < asteroid.size / 2
             )
         )
     );
@@ -177,13 +182,13 @@ export default () => {
 
   // create asteroids
   useInterval(() => {
-    if (asteroids.length < 20)
+    if (asteroids.length < 30)
       setAsteroids([...asteroids, createAsteroid(size)]);
-  }, 3000);
+  }, 1500);
 
   return (
     <Row
-      style={{ height: "100vh" }}
+      style={{ height: "82vh" }}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}

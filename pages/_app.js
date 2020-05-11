@@ -29,9 +29,7 @@ class MyApp extends App {
                 </Link>
               </Menu.Item>
 
-           <Menu.Item key="4">
-               Exit
-              </Menu.Item>
+              <Menu.Item key="4">Exit</Menu.Item>
             </Menu>
           </Header> */}
 
