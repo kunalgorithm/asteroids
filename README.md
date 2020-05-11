@@ -1,5 +1,7 @@
 # Asteroids
 
+![Asteroids Screenshot](/public/asteroids.gif)
+
 ## Quick Start
 
 Clone the repository
