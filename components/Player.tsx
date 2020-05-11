@@ -9,16 +9,16 @@ export default ({ keysDown, tick }) => {
   const [position, setPosition] = useState({
     x: 50,
     y: 100,
-    speed: 10,
-    rotation: 90,
+    speed: 15,
   });
 
   const size = useWindowSize();
+  const [rotation, setRotation] = useState(90);
   useEffect(() => {
     const xComponent =
-      position.speed * Math.cos(((position.rotation - 90) * Math.PI) / 180);
+      position.speed * Math.cos(((rotation - 90) * Math.PI) / 180);
     const yComponent =
-      position.speed * Math.sin(((position.rotation - 90) * Math.PI) / 180);
+      position.speed * Math.sin(((rotation - 90) * Math.PI) / 180);
     if (keysDown["ArrowUp"]) {
       const newPosition = {
         x: position.x + xComponent,
@@ -41,10 +41,8 @@ export default ({ keysDown, tick }) => {
       });
     }
 
-    if (keysDown["ArrowLeft"])
-      setPosition({ ...position, rotation: position.rotation - 7 });
-    if (keysDown["ArrowRight"])
-      setPosition({ ...position, rotation: position.rotation + 7 });
+    if (keysDown["ArrowLeft"]) setRotation(rotation - 7);
+    if (keysDown["ArrowRight"]) setRotation(rotation + 7);
   }, [tick]);
 
   return (
@@ -55,7 +53,7 @@ export default ({ keysDown, tick }) => {
         left: `${position.x}px`,
         top: `${position.y}px`,
       }}
-      rotate={position.rotation}
+      rotate={rotation}
     />
   );
 };

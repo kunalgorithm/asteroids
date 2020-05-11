@@ -22,7 +22,7 @@ class MyApp extends App {
         </Head>
 
         <Layout style={{ height: "100vh", marginTop: "-10px" }}>
-          <Header>
+          {/* <Header>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[]}>
               <Menu.Item key="1">
                 <Link href="/">
@@ -34,7 +34,7 @@ class MyApp extends App {
                 <Exit />
               </Menu.Item>
             </Menu>
-          </Header>
+          </Header> */}
 
           {/* <Sider>Sider</Sider> */}
           <Content style={{ padding: "3em" }}>
