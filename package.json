@@ -1,9 +1,12 @@
 {
   "name": "asteroids",
-  "homepage": "https://asteroids.now.sh",
+  "homepage": "https://asteroids.live",
   "author": {
     "name": "Kunal Shah",
     "email": "me@kunal.sh"
+  },
+  "repository": {
+    "url": "https://github.com/kunalgorithm/asteroids"
   },
   "version": "1.0.0",
   "license": "MIT",

@@ -1,6 +1,6 @@
 # Asteroids
 
-<a href="https://asteroids.now.sh" style="text-align: center;" target="_blank">![Asteroids Screenshot](/public/asteroids-small.gif)</a>
+<a href="https://asteroids.live" style="text-align: center;" target="_blank">![Asteroids Screenshot](/public/asteroids-small.gif)</a>
 
 ## Quick Start
 
