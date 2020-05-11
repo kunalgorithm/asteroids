@@ -1,4 +1,4 @@
-import Salon from "../components/Salon";
+import Salon from "../components/Game";
 
 export default () => {
   return <Salon />;
