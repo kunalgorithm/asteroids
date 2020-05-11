@@ -1,30 +1,31 @@
 import useWindowSize from "./useWindowSize";
-import { Row, Col, Popover } from "antd";
 
 import { UpCircleOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
-import AwesomeDebouncePromise from "awesome-debounce-promise";
-import { useRouter } from "next/router";
+
 import useInterval from "./useInterval";
 
-export default ({ keysDown, speed }) => {
+export default ({ keysDown, tick }) => {
   const [position, setPosition] = useState({
     x: 50,
     y: 100,
+    speed: 10,
+    rotation: 90,
   });
 
-  const [rotation, setRotation] = useState(90);
   const size = useWindowSize();
-
-  useInterval(() => {
-    const xComponent = speed * Math.cos(((rotation - 90) * Math.PI) / 180);
-    const yComponent = speed * Math.sin(((rotation - 90) * Math.PI) / 180);
+  useEffect(() => {
+    const xComponent =
+      position.speed * Math.cos(((position.rotation - 90) * Math.PI) / 180);
+    const yComponent =
+      position.speed * Math.sin(((position.rotation - 90) * Math.PI) / 180);
     if (keysDown["ArrowUp"]) {
       const newPosition = {
         x: position.x + xComponent,
         y: position.y + yComponent,
       };
       setPosition({
+        ...position,
         x:
           newPosition.x < 0
             ? size.width
@@ -40,9 +41,11 @@ export default ({ keysDown, speed }) => {
       });
     }
 
-    if (keysDown["ArrowLeft"]) setRotation(rotation - 7);
-    if (keysDown["ArrowRight"]) setRotation(rotation + 7);
-  }, 30);
+    if (keysDown["ArrowLeft"])
+      setPosition({ ...position, rotation: position.rotation - 7 });
+    if (keysDown["ArrowRight"])
+      setPosition({ ...position, rotation: position.rotation + 7 });
+  }, [tick]);
 
   return (
     <UpCircleOutlined
@@ -52,7 +55,7 @@ export default ({ keysDown, speed }) => {
         left: `${position.x}px`,
         top: `${position.y}px`,
       }}
-      rotate={rotation}
+      rotate={position.rotation}
     />
   );
 };

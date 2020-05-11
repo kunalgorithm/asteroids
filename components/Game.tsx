@@ -4,10 +4,10 @@ import { UpCircleOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 
 import Player from "./Player";
+import Asteroid from "./Asteroid";
+import useInterval from "./useInterval";
 
 export default () => {
-  const speed = 10;
-
   const [keysDown, setKeysDown] = useState({
     ArrowUp: false,
     ArrowDown: false,
@@ -30,6 +30,9 @@ export default () => {
     newKeysDown[event.key] = false;
     setKeysDown(newKeysDown);
   };
+  const [tick, setTick] = useState(0);
+
+  useInterval(() => setTick(tick + 1), 50);
 
   return (
     <Row
@@ -40,7 +43,8 @@ export default () => {
       id="game"
     >
       <div>
-        <Player keysDown={keysDown} speed={speed} />
+        <Player keysDown={keysDown} tick={tick} />
+        <Asteroid tick={tick} />
       </div>
     </Row>
   );
