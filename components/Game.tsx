@@ -124,7 +124,7 @@ function useGameUpdate(keysDown) {
   const [player, setPlayer] = useState({
     x: size.width / 2,
     y: size.height / 2,
-    speed: 15,
+    speed: 0,
   });
   const [playerRotation, setPlayerRotation] = useState(90);
 
@@ -136,27 +136,28 @@ function useGameUpdate(keysDown) {
       player.speed * Math.cos(((playerRotation - 90) * Math.PI) / 180);
     const yComponent =
       player.speed * Math.sin(((playerRotation - 90) * Math.PI) / 180);
-    if (keysDown["ArrowUp"]) {
-      const newPosition = {
-        x: player.x + xComponent,
-        y: player.y + yComponent,
-      };
-      setPlayer({
-        ...player,
-        x:
-          newPosition.x < 0 - 50
-            ? size.width
-            : newPosition.x > size.width
-            ? 0
-            : newPosition.x,
-        y:
-          newPosition.y < 0 - 50
-            ? size.height
-            : newPosition.y > size.height
-            ? 0
-            : newPosition.y,
-      });
-    }
+
+    const newPosition = {
+      x: player.x + xComponent,
+      y: player.y + yComponent,
+    };
+    setPlayer({
+      ...player,
+      x:
+        newPosition.x < 0 - 50
+          ? size.width
+          : newPosition.x > size.width
+          ? 0
+          : newPosition.x,
+      y:
+        newPosition.y < 0 - 50
+          ? size.height
+          : newPosition.y > size.height
+          ? 0
+          : newPosition.y,
+      speed: keysDown["ArrowUp"] ? player.speed + 2 : player.speed * 0.9,
+    });
+
     if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 10);
     if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 10);
     /////////////////////////////////////////////////////
