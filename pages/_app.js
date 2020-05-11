@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const { Header, Footer, Sider, Content } = Layout;
 //@ts-ignore
-import "antd/dist/antd.css";
+import "antd/dist/antd.dark.css";
 import "../global.scss";
 class MyApp extends App {
   render() {
@@ -18,7 +18,7 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <title>Salon</title>
+          <title>Asteroids</title>
         </Head>
 
         <Layout style={{ height: "100vh", marginTop: "-10px" }}>
@@ -26,7 +26,7 @@ class MyApp extends App {
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[]}>
               <Menu.Item key="1">
                 <Link href="/">
-                  <a>Salon</a>
+                  <a>Asteroids</a>
                 </Link>
               </Menu.Item>
 
