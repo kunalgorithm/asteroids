@@ -1,13 +1,14 @@
-import { UpCircleOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
+import { GithubFilled } from "@ant-design/icons";
 
 import { useMovement } from "./useMovement";
 
 export default ({ x, y, rotation }) => {
   // const position = useMovement(tick);
+
   return (
-    <DeploymentUnitOutlined
+    <GithubFilled
       style={{
-        fontSize: "3em",
+        fontSize: "1em",
         position: "absolute",
         left: `${x}px`,
         top: `${y}px`,
