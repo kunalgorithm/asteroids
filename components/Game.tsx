@@ -122,8 +122,8 @@ function useGameUpdate(keysDown) {
     }[]
   >([]);
   const [player, setPlayer] = useState({
-    x: size.width / 2,
-    y: size.height / 2,
+    x: 200,
+    y: 400,
     speed: 0,
   });
   const [playerRotation, setPlayerRotation] = useState(90);
