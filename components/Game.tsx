@@ -1,4 +1,4 @@
-import { Row, Col, Popover, Alert } from "antd";
+import { Row, Col, Popover, Alert, message } from "antd";
 
 import { UpCircleOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
@@ -157,6 +157,25 @@ function useGameUpdate(keysDown) {
           : newPosition.y,
       speed: keysDown["ArrowUp"] ? player.speed + 2 : player.speed * 0.9,
     });
+
+    if (
+      asteroids.find(
+        (asteroid) =>
+          Math.abs(asteroid.x - player.x) < asteroid.size * 0.65 &&
+          Math.abs(asteroid.y - player.y) < asteroid.size * 0.65
+      )
+    ) {
+      score >= parseInt(localStorage.getItem("highScore"))
+        ? message.success(
+            `Game over! Your score was ${score}, a new high score!`
+          )
+        : message.error(`Game over! Your score was ${score}.`);
+
+      setAsteroids([]);
+      setBullets([]);
+      setScore(0);
+      return;
+    }
 
     if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 10);
     if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 10);

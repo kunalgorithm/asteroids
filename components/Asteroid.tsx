@@ -1,11 +1,15 @@
-import { UpCircleOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
+import {
+  UpCircleOutlined,
+  DeploymentUnitOutlined,
+  RadarChartOutlined,
+} from "@ant-design/icons";
 
 import { useMovement } from "./useMovement";
 
 export default ({ x, y, rotation, size }) => {
   // const position = useMovement(tick);
   return (
-    <DeploymentUnitOutlined
+    <RadarChartOutlined
       style={{
         fontSize: `${size}px`,
         position: "absolute",

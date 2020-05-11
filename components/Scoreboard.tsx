@@ -13,6 +13,7 @@ export function Scoreboard({ score }: { score: number }) {
       >
         {" "}
         <Alert
+          style={{ marginTop: "-15em" }}
           message="Click the game to start."
           className="alert"
           description="The game window is not currently in focus."
