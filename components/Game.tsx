@@ -11,6 +11,15 @@ import useWindowSize from "./useWindowSize";
 function getRandomInt(min = 0, max = 10) {
   return Math.floor(Math.random() * Math.floor(max) + min);
 }
+function createAsteroid(size) {
+  return {
+    x: getRandomInt(0, size.width),
+    y: getRandomInt(0, size.height),
+    rotation: getRandomInt(0, 180),
+    speed: getRandomInt(),
+    curve: Math.random() - 0.5,
+  };
+}
 
 export default () => {
   const [keysDown, setKeysDown] = useState({
@@ -38,13 +47,8 @@ export default () => {
   const [tick, setTick] = useState(0);
   const size = useWindowSize();
   const [asteroids, setAsteroids] = useState([
-    {
-      x: getRandomInt(0, size.width),
-      y: getRandomInt(0, size.height),
-      rotation: getRandomInt(0, 180),
-      speed: getRandomInt(),
-      curve: Math.random() - 0.5,
-    },
+    createAsteroid(size),
+    createAsteroid(size),
   ]);
   const [bullets, setBullets] = useState([]);
   const [player, setPlayer] = useState({
@@ -126,9 +130,10 @@ export default () => {
   }, 60);
 
   // create asteroids
-  // useInterval(() => {
-  //   setAsteroids([...asteroids, Math.random()]);
-  // }, 3000);
+  useInterval(() => {
+    if (asteroids.length < 20)
+      setAsteroids([...asteroids, createAsteroid(size)]);
+  }, 3000);
 
   return (
     <Row
