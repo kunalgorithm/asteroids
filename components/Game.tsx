@@ -59,7 +59,77 @@ export default () => {
       ]);
     }
   };
-  const [tick, setTick] = useState(0);
+
+  const {
+    player,
+    asteroids,
+    bullets,
+    score,
+    size,
+    setAsteroids,
+    setBullets,
+    playerRotation,
+  } = useGameUpdate(keysDown);
+
+  // create asteroids
+  useInterval(() => {
+    if (asteroids.length < 30)
+      setAsteroids([...asteroids, createAsteroid(size)]);
+  }, 1500);
+
+  return (
+    <Row
+      style={{ height: "82vh" }}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      id="game"
+    >
+      <Col sm={{ span: 8, order: 1 }} md={{ span: 8 }}>
+        <h4 style={{ marginTop: "-20px" }}>Score: {score}</h4>
+      </Col>
+      <Col
+        md={8}
+        sm={{ span: 12, order: 3, offset: 6 }}
+        xs={{ span: 16, order: 3, offset: 4 }}
+      >
+        {" "}
+        <Alert
+          message="Click the game to start."
+          className="alert"
+          description="The game window is not currently in focus."
+          type="info"
+          showIcon
+        />{" "}
+      </Col>
+      <Col
+        md={8}
+        sm={{ span: 4, order: 2, offset: 8 }}
+        xs={{ span: 8, order: 2 }}
+      >
+        <h4 style={{ marginTop: "-20px", textAlign: "right" }}>
+          High Score:{" "}
+          {typeof window !== "undefined" && localStorage.getItem("highScore")
+            ? localStorage.getItem("highScore")
+            : 0}
+        </h4>
+      </Col>
+
+      <div>
+        <Player position={player} rotation={playerRotation} />
+
+        {asteroids.map((as, i) => (
+          <Asteroid {...as} key={i} />
+        ))}
+        {bullets.map((b, i) => (
+          <Bullet {...b} key={i} />
+        ))}
+      </div>
+    </Row>
+  );
+};
+
+function useGameUpdate(keysDown) {
   const size = useWindowSize();
   const [asteroids, setAsteroids] = useState([
     createAsteroid(size),
@@ -79,9 +149,9 @@ export default () => {
     }[]
   >([]);
   const [player, setPlayer] = useState({
-    x: 50,
-    y: 100,
-    speed: 13,
+    x: size.width / 2,
+    y: size.height / 2,
+    speed: 15,
   });
   const [playerRotation, setPlayerRotation] = useState(90);
 
@@ -125,12 +195,10 @@ export default () => {
           as.speed * Math.cos(((as.rotation - 90) * Math.PI) / 180);
         const yComponent =
           as.speed * Math.sin(((as.rotation - 90) * Math.PI) / 180);
-
         const newPosition = {
           x: as.x + xComponent,
           y: as.y + yComponent,
         };
-
         return {
           ...as,
           x:
@@ -163,9 +231,7 @@ export default () => {
       score > parseInt(localStorage.getItem("highScore"))
     )
       localStorage.setItem("highScore", score.toString());
-
     setAsteroids(newAsteroids);
-
     /////////////////////////////////////////////////////
     // update bullets
     /////////////////////////////////////////////////////
@@ -186,58 +252,14 @@ export default () => {
       )
     );
   }, 60);
-
-  // create asteroids
-  useInterval(() => {
-    if (asteroids.length < 30)
-      setAsteroids([...asteroids, createAsteroid(size)]);
-  }, 1500);
-
-  return (
-    <Row
-      style={{ height: "82vh" }}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
-      id="game"
-    >
-      <Col md={8} sm={{ span: 8, order: 1 }}>
-        <h4 style={{ marginTop: "-20px" }}>Score: {score}</h4>
-      </Col>
-      <Col
-        md={8}
-        sm={{ span: 12, order: 3, offset: 6 }}
-        xs={{ span: 16, order: 3, offset: 4 }}
-      >
-        {" "}
-        <Alert
-          message="Click the game to start."
-          className="alert"
-          description="The game window is not currently in focus."
-          type="warning"
-          showIcon
-          closable
-        />{" "}
-      </Col>
-      <Col md={8} sm={{ span: 8, order: 2 }} xs={{ span: 8, order: 2 }}>
-        <h4 style={{ marginTop: "-20px", textAlign: "right" }}>
-          High Score:{" "}
-          {typeof window !== "undefined" && localStorage.getItem("highScore")
-            ? localStorage.getItem("highScore")
-            : 0}
-        </h4>
-      </Col>
-
-      <div>
-        <Player position={player} rotation={playerRotation} />
-
-        {asteroids.map((as, i) => (
-          <Asteroid {...as} key={i} />
-        ))}
-        {bullets.map((b, i) => (
-          <Bullet {...b} key={i} />
-        ))}
-      </div>
-    </Row>
-  );
-};
+  return {
+    player,
+    playerRotation,
+    asteroids,
+    bullets,
+    score,
+    size,
+    setAsteroids,
+    setBullets,
+  };
+}
