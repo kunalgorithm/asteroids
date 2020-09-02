@@ -1,6 +1,6 @@
-# Asteroids
+# Snake
 
-<a href="https://asteroids.live" style="text-align: center;" target="_blank">![Asteroids Screenshot](/public/asteroids-small.gif)</a>
+Forked from [asteroids](https://github.com/kunalgorithm/asteroids).
 
 ## Quick Start
 
@@ -15,26 +15,26 @@ yarn dev
 
 # Deploy
 
-Deploy to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
+Deploy to the cloud with [vercel](https://vercel.com/)
 
-Install the `now` CLI
+Install the `vercel` CLI
 
 ```bash
-npm install --global now
+npm install --global vercel
 ```
 
 Then deploy using
 
 ```bash
-now
+vercel
 ```
 
 # Tech stack
 
 🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client.
 
-🌚 [Next 9](https://github.com/zeit/next.js) - SSR, file-based routing, and automatic code-splitting
+🌚 [Next 9](https://github.com/vercel/next.js) - SSR, file-based routing, and automatic code-splitting
 
 💅 [Ant Design](https:/ant.design) - Beautiful, responsive, easy-to-use components.
 
-▲ [ZEIT (Vercel) now](https://now.sh) - serverless monorepo deployment.
+▲ [Vercel](https://vercel) - serverless monorepo deployment.
