@@ -1,6 +1,6 @@
 import { Input } from "antd";
 
- const Field (props) => {
+const Field = (props) => {
   return (
     <div>
       <Input {...props} />
@@ -8,4 +8,4 @@ import { Input } from "antd";
   );
 };
 
-export default Field
+export default Field;
