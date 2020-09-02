@@ -76,7 +76,7 @@ export default () => {
   useInterval(() => {
     if (asteroids.length < 30)
       setAsteroids([...asteroids, createAsteroid(size)]);
-  }, 1500);
+  }, 1000);
 
   return (
     <Row
@@ -105,6 +105,10 @@ export default () => {
 function useGameUpdate(keysDown) {
   const size = useWindowSize();
   const [asteroids, setAsteroids] = useState([
+    createAsteroid(size),
+    createAsteroid(size),
+    createAsteroid(size),
+    createAsteroid(size),
     createAsteroid(size),
     createAsteroid(size),
     createAsteroid(size),

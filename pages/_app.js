@@ -18,6 +18,7 @@ class MyApp extends App {
       <>
         <Head>
           <title>Asteroids</title>
+          <meta name="description" content="In your browser ☄️" />
         </Head>
 
         <Layout style={{ height: "100vh", marginTop: "-10px" }}>
