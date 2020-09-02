@@ -1,5 +1,6 @@
 import Game from "../components/Game";
 
-export default () => {
+const Page = () => {
   return <Game />;
 };
+export default Page;

@@ -6,7 +6,7 @@ import {
 
 import { useMovement } from "./useMovement";
 
-export default ({ x, y, rotation, size }) => {
+const Asteroid = ({ x, y, rotation, size }) => {
   // const position = useMovement(tick);
   return (
     <RadarChartOutlined
@@ -20,3 +20,5 @@ export default ({ x, y, rotation, size }) => {
     />
   );
 };
+
+export default Asteroid;

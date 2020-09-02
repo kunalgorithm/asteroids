@@ -1,9 +1,11 @@
 import { Input } from "antd";
 
-export default (props) => {
+ const Field (props) => {
   return (
     <div>
       <Input {...props} />
     </div>
   );
 };
+
+export default Field

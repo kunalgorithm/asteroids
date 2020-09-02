@@ -2,7 +2,7 @@ import { RocketFilled } from "@ant-design/icons";
 
 import { useMovement } from "./useMovement";
 
-export default ({ x, y, rotation }) => {
+const Bullet = ({ x, y, rotation }) => {
   // const position = useMovement(tick);
 
   return (
@@ -17,3 +17,4 @@ export default ({ x, y, rotation }) => {
     />
   );
 };
+export default Bullet;

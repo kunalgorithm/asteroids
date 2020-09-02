@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 import useInterval from "./useInterval";
 
-export default ({ position, rotation }) => {
+const Player = ({ position, rotation }) => {
   return (
     <UpCircleOutlined
       style={{
@@ -18,3 +18,5 @@ export default ({ position, rotation }) => {
     />
   );
 };
+
+export default Player;
