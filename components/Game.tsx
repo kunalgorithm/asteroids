@@ -9,6 +9,7 @@ import { Scoreboard } from "./Scoreboard";
 import { useGameUpdate } from "./useGameUpdate";
 
 const ASTEROID_FREQUENCY = 800;
+export const SNAKE_TAIL_INCREMENT = 3;
 
 function getRandomInt(min = 0, max = 10) {
   return Math.floor(Math.random() * Math.floor(max) + min);
@@ -53,7 +54,6 @@ const Game = () => {
   const {
     player,
     asteroids,
-    score,
     size,
     setAsteroids,
     playerRotation,
@@ -74,7 +74,7 @@ const Game = () => {
       onKeyUp={handleKeyUp}
       id="game"
     >
-      <Scoreboard score={score!} />
+      <Scoreboard score={snakeLength!} />
 
       <div>
         <Player position={player[0]} rotation={playerRotation} />
@@ -85,7 +85,7 @@ const Game = () => {
           .fill(0)
           .map((node, i) => (
             <Player
-              position={player[i * 4]}
+              position={player[i * SNAKE_TAIL_INCREMENT]}
               rotation={playerRotation}
               key={i}
             />

@@ -2,7 +2,7 @@ import { message } from "antd";
 import { useState } from "react";
 import useInterval from "./useInterval";
 import useWindowSize from "./useWindowSize";
-import { createAsteroid } from "./Game";
+import { createAsteroid, SNAKE_TAIL_INCREMENT } from "./Game";
 
 export function useGameUpdate(keysDown) {
   function isCollide(object: { x: number; y: number; size?: number }) {
@@ -20,7 +20,6 @@ export function useGameUpdate(keysDown) {
     createAsteroid(size),
     createAsteroid(size),
   ]);
-  const [score, setScore] = useState(0);
 
   const [player, setPlayer] = useState([
     {
@@ -28,20 +27,20 @@ export function useGameUpdate(keysDown) {
       y: 400,
     },
   ]);
-  const playerSpeed = 11;
+  const PLAYER_SPEED = 16;
   const [playerRotation, setPlayerRotation] = useState(90);
   const [snakeLength, setSnakeLength] = useState(1);
 
-  const GAMEPLAY_FRAME_RATE = 70;
+  const GAMEPLAY_FRAME_RATE = 65;
 
   useInterval(() => {
     /////////////////////////////////////////////////////
     // Update player
     /////////////////////////////////////////////////////
     const xComponent =
-      playerSpeed * Math.cos(((playerRotation - 90) * Math.PI) / 180);
+      PLAYER_SPEED * Math.cos(((playerRotation - 90) * Math.PI) / 180);
     const yComponent =
-      playerSpeed * Math.sin(((playerRotation - 90) * Math.PI) / 180);
+      PLAYER_SPEED * Math.sin(((playerRotation - 90) * Math.PI) / 180);
 
     const newPosition = {
       x: player[0].x + xComponent,
@@ -70,43 +69,25 @@ export function useGameUpdate(keysDown) {
       setSnakeLength(snakeLength + 1);
       setAsteroids(asteroids.filter((as) => !isCollide(as)));
 
-      //   score >= parseInt(localStorage.getItem("highScore"))
-      //     ? message.success(
-      //         `Game over! Your score was ${score}, a new high score!`
-      //       )
-      //     : message.error(`Game over! Your score was ${score}.`);
-
-      //   setBullets([]);
-      //   setScore(0);
       return;
     }
 
     Array(snakeLength)
       .fill(0)
       .forEach((_node, i) => {
-        if (i >= 5 && isCollide(player[i * 4])) {
-          message.error("game over!");
+        if (i >= 5 && isCollide(player[i * SNAKE_TAIL_INCREMENT])) {
+          snakeLength >= parseInt(localStorage.getItem("highScore"))
+            ? message.success(
+                `Game over! Your score was ${snakeLength}, a new high score!`
+              )
+            : message.error(`Game over! Your score was ${snakeLength}.`);
           setAsteroids([]);
           setSnakeLength(1);
         }
       });
-    //  // Increase Snake length
 
-    // //  score >= parseInt(localStorage.getItem("highScore"))
-    // //  ? message.success(
-    // //      `Game over! Your score was ${score}, a new high score!`
-    // //    )
-    // //  : message.error(`Game over! Your score was ${score}.`);
-
-    // setSnakeLength(1);
-    // setAsteroids([]);
-    // setScore(0);
-    // return;
-    //         })
-    //     })
-
-    if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 10);
-    if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 10);
+    if (keysDown["ArrowLeft"]) setPlayerRotation(playerRotation - 14);
+    if (keysDown["ArrowRight"]) setPlayerRotation(playerRotation + 14);
 
     /////////////////////////////////////////////////////
     // Update asteroids
@@ -139,23 +120,19 @@ export function useGameUpdate(keysDown) {
       };
     });
 
-    setScore(score + asteroids.length - newAsteroids.length);
     if (
       !localStorage.getItem("highScore") ||
-      score > parseInt(localStorage.getItem("highScore"))
+      snakeLength > parseInt(localStorage.getItem("highScore"))
     )
-      localStorage.setItem("highScore", score.toString());
+      localStorage.setItem("highScore", snakeLength.toString());
     setAsteroids(newAsteroids);
   }, GAMEPLAY_FRAME_RATE);
   return {
     player,
     playerRotation,
     asteroids,
-
-    score,
     size,
     setAsteroids,
-
     snakeLength,
   };
 }
