@@ -15,26 +15,25 @@ yarn dev
 
 # Deploy
 
-Deploy to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
+Deploy to the cloud with [Vercel](https://vercel.com/)
 
 Install the `now` CLI
 
 ```bash
-npm install --global now
+npm install --global vc
 ```
 
 Then deploy using
 
 ```bash
-now
+vc
 ```
 
 # Tech stack
 
 🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client.
 
-🌚 [Next 9](https://github.com/zeit/next.js) - SSR, file-based routing, and automatic code-splitting
+🌚 [NextJS](https://github.com/vercel/next.js) - SSR, file-based routing, and automatic code-splitting
 
 💅 [Ant Design](https:/ant.design) - Beautiful, responsive, easy-to-use components.
 
-▲ [ZEIT (Vercel) now](https://now.sh) - serverless monorepo deployment.
